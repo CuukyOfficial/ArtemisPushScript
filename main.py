@@ -70,6 +70,11 @@ for key in types:
     # Copy files from task directory to repository
     os.system("cp -r " + os.path.join(source_dir, "*") + working_dir_temp)
 
+    success = input("Please enter if the directory at " + working_dir_temp + "is complete and ready to push (y/n): ")
+    if success == "n" or success == "N":
+        print("Skipping git add, commit and push for " + key)
+        continue
+
     # Add files to git
     os.system("cd " + working_dir_temp + " && git add .")
 
@@ -81,4 +86,4 @@ for key in types:
 
     print("Successfully cloned " + key + " repository")
 
-print("Successfully cloned all repositories")
+print("Done.")
