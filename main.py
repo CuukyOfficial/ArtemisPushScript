@@ -85,5 +85,6 @@ for key in types:
     os.system("cd " + working_dir_temp + " && git push")
 
     print("Successfully cloned " + key + " repository")
+    print("---------------\n")
 
 print("Done.")
