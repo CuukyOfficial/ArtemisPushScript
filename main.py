@@ -41,6 +41,9 @@ while True:
     extra_git_commands.append(command)
 
 for key in types:
+    if input("Do your want to push " + key + "? (y/n)") == "n":
+        continue
+
     source_dir = os.path.join(directory, key)
 
     # Check if directory exists
