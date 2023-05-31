@@ -31,19 +31,7 @@ while True:
         break
     print("Please enter a valid directory")
 
-extra_git_commands = []
-# Check if user wants extra git inputs
-print("Now enter extra git commands that will be executed in every cloned directory (leave empty if finished): ")
-while True:
-    command = input()
-    if command == "":
-        break
-    extra_git_commands.append(command)
-
 for key in types:
-    if input("Do your want to push " + key + "? (y/n)") == "n":
-        continue
-
     source_dir = os.path.join(directory, key)
 
     # Check if directory exists
@@ -58,14 +46,20 @@ for key in types:
         print("Directory " + working_dir_temp + " already exists, skipping...")
         continue
 
+    if not input("Do you want to push " + key + " (y/n)? ") == "y":
+        continue
+
     git_url = input("Enter git url for " + types[key] + ": ")
 
     # Clone git repository
     os.system("git clone " + git_url + " " + working_dir_temp)
 
     # Execute extra git commands
-    for command in extra_git_commands:
-        os.system("cd " + working_dir_temp + " && " + command)
+    f = open("git.txt", "r")
+    with f:
+        for x in f:
+            print("Executing: " + x)
+            os.system("cd " + working_dir_temp + " && " + x)
 
     # Delete files in repository
     os.system("rm -rf " + os.path.join(working_dir_temp, "*"))
